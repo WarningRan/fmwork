@@ -6,14 +6,14 @@ FM Benchmarking Framework
 
 Install conda:
 
-```
+``` bash
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh
 ```
 
 Create environment and install deps:
 
-```
+``` bash
 conda create -n vllm-0.6.2 python=3.10 -y
 conda activate  vllm-0.6.2
 pip install vllm==0.6.2
@@ -21,21 +21,21 @@ pip install vllm==0.6.2
 
 Get a model (e.g., https://huggingface.co/ibm-granite/granite-8b-code-base-128k):
 
-```
+``` bash
 pip install huggingface-hub
 huggingface-cli download --cache-dir ./ --local-dir-use-symlinks False --revision main --local-dir models/granite-8b ibm-granite/granite-8b-code-base-128k
 ```
 
 Clone repo and run experiment:
 
-```
+``` bash
 git clone git@github.com:IBM/fmwork.git
 ./fmwork/driver --model_path models/granite-8b --input_size 1024 --output_size 1024 --batch_size 1,2,4 --tensor_parallel 1
 ```
 
 This should produce blocks of outputs like:
 
-```
+``` bash
 --------------------------------------------------------------------------------
 RUN 1024 / 1024 / 1 / 1
 --------------------------------------------------------------------------------
@@ -76,7 +76,7 @@ Throughput (tok/s)        = 124.8
 
 If saved to a file, all `RES` lines can be easily grep-ed for further analysis.
 
-```
+``` bash
 grep -R "FMWORK RES" outputs/ | tr / ' ' | column -t
 ```
 
